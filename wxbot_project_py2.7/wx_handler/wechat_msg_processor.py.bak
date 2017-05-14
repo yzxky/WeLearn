@@ -6,7 +6,6 @@ from wechat.utils import *
 from config import ConfigManager
 from config import Constant
 from config import Log
-from weLearn import weLearn
 #---------------------------------------------------
 import os
 import time
@@ -175,23 +174,6 @@ class WeChatMsgProcessor(object):
             msg['timestamp']
         )
         self.db.insert(Constant.TABLE_GROUP_MSG_LOG, col)
-
-        try:
-            groupName = msg['group_name']
-            Log.debug(msg['group_name'])
-            Log.info(msg['user_nickname'])
-            if groupName.strip() == "微信机器人测试" or groupName.strip() == "沉迷学习，日渐消瘦":
-                Log.debug(msg['text'])
-                if msg['raw_msg']['FromUserName'][:2] == '@@':
-                    dst = msg['raw_msg']['FromUserName']
-                elif msg['raw_msg']['ToUserName'][:2] == '@@':
-                    dst = msg['raw_msg']['ToUserName']
-
-                msg_info = self.wechat.bot.handleGroupMsg(msg['text'], msg['user_nickname'])
-                self.wechat.webwxsendmsg(msg_info, dst)
-        except Exception, e:
-            Log.debug(str(e))
-            pass
 
         text = msg['text']
         if text and text[0] == '@':

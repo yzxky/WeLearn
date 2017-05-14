@@ -6,6 +6,7 @@ from wechat import WeChat
 from wechat.utils import *
 from wx_handler import WeChatMsgProcessor
 from wx_handler import Bot
+from weLearn import weLearn
 from db import SqliteDB
 from db import MysqlDB
 from config import ConfigManager
@@ -27,7 +28,7 @@ db = SqliteDB(cm.getpath('database'))
 wechat_msg_processor = WeChatMsgProcessor(db)
 wechat = WeChat(cm.get('wechat', 'host'))
 wechat.db = db
-wechat.bot = Bot()
+wechat.bot = weLearn()
 wechat.msg_handler = wechat_msg_processor
 wechat_msg_processor.wechat = wechat
 
