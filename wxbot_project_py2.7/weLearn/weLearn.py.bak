@@ -133,19 +133,7 @@ class weLearn:
         buffer_content = content.split()
         info = ''
         # query keywords: query or q (for short).
-        if buffer_content[0] == "状态" or buffer_content[0].lower() == "state" or buffer_content[0].lower() == "s":
-            date_time = datetime.datetime.now()
-            name = ''
-            if len(buffer_content) == 1:
-                name = srcName.decode('UTF-8')
-            elif len(buffer_content) == 2 and buffer_conternt[1].isalpha():
-                name = buffer_content[1].decode('UTF-8')
-
-            if name_dict.has_key(name):
-                check_info = {'name' : name_dict[name]}
-                log_info = ''
-                return self.checkStatus(check_info)
-        elif buffer_content[0] == "查询" or buffer_content[0].lower() == "query" or buffer_content[0].lower() == "q":
+        if buffer_content[0] == "查询" or buffer_content[0].lower() == "query" or buffer_content[0].lower() == "q":
             date_time = datetime.datetime.now()
             name = ''
             if len(buffer_content) == 1:
@@ -345,18 +333,6 @@ class weLearn:
             num = num + 1
         return '读取成功'
 
-    def checkStatus(self, check_info):
-        name = check_info['name']
-        id = int(id_dict[name])
-        
-        if self.state_in[id] is 0:
-            info = name + '当前状态：离线\n'
-            last_login_info = '上次登出时间：' + self.last_login[id].strftime('%Y-%m-%d %H:%M:%S')
-            return info + last_login_info
-        elif self.state_in[id] is 1:
-            info = name + '当前状态：在线\n'
-            last_login_info = '上次登录时间：' + self.last_login[id].strftime('%Y-%m-%d %H:%M:%S')
-            return info + last_login_info
     def checkLogInfo(self, log_info):
         action = int(log_info['state']) #'0': logout, '1': login
         name = log_info['name']
