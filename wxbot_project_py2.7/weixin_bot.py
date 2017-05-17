@@ -36,7 +36,7 @@ PORT = int(cm.get('setting', 'server_port'))
 app = Flask(__name__, template_folder='flask_templates')
 app.config['UPLOAD_FOLDER'] = cm.getpath('uploaddir')
 
-logger = logging.getLogger('werkzeug')
+logger = logging.getLogger('xky')
 log_format_str = Constant.SERVER_LOG_FORMAT
 formatter = logging.Formatter(log_format_str)
 flask_log_handler = logging.FileHandler(cm.getpath('server_log_file'))
@@ -253,6 +253,10 @@ if cm.get('setting', 'server_mode') == 'True':
 
 while True:
     try:
+        db = SqliteDB(cm.getpath('database'))
+        wechat.db = db
+        wechat.msg_handler.db = db
+        wechat.bot = weLearn()
         wechat.start()
     except KeyboardInterrupt:
         echo(Constant.LOG_MSG_QUIT)

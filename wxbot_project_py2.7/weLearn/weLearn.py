@@ -37,6 +37,7 @@ class weLearn:
         self.last_login = [self.time_init for i  in range(self.memberNum)]
         
         self.online_time = [[datetime.timedelta(0) for i in range(self.memberNum)] for i in range(7)]
+        self.readStatus()
 
     def _showMsg(self, message):
 
